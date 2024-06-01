@@ -9,7 +9,7 @@
     <Grid>
 		
 		<TabControl>
-			<TabItem Header="TabItem">
+			<TabItem Header="TabItem1">
 				<Grid Background="#FFE5E5E5">
 					<Button Content="Button"
 							HorizontalAlignment="Left"
@@ -20,7 +20,7 @@
 							  Margin="0,25,0,-25" />
 				</Grid>
 			</TabItem>
-			<TabItem Header="TabItem">
+			<TabItem Header="TabItem2">
 				<Grid Background="#FFE5E5E5">
 					<DataGrid x:Name="dataGrid2"
 							  d:ItemsSource="{d:SampleData ItemCount=5}"

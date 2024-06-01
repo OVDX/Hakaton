@@ -35,5 +35,23 @@ namespace Data_Analyst
             Price = Math.Round(Price,2);
             _priceForOne = Math.Round(PriceForOne, 2);
         }
+
+        public static List<List<Product>> groupByName(List<Product> list)
+        {
+            var groupedProducts = list.GroupBy(p => p.Name)
+                                    .Select(g => g.ToList())
+                                    .ToList();
+            return groupedProducts;
+        }
+
+        public static List<List<Product>> groupByType(List<Product> list)
+        {
+            var groupedAndSortedProducts = list.GroupBy(p => p.Type)
+                                               .Select(g => g.OrderBy(p => p.Name).ToList())
+                                               .ToList();
+            return groupedAndSortedProducts;
+
+        }
+
     }
 }
