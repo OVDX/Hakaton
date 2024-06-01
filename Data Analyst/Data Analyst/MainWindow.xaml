@@ -7,13 +7,27 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-		<Button Content="Button"
-				HorizontalAlignment="Left"
-				VerticalAlignment="Top"
-				Click="ReadExcFile" />
-		<DataGrid x:Name="dataGrid"
-				  d:ItemsSource="{d:SampleData ItemCount=5}"
-				  Margin="0,25,0,-25" />
+		
+		<TabControl>
+			<TabItem Header="TabItem">
+				<Grid Background="#FFE5E5E5">
+					<Button Content="Button"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Top"
+							Click="ReadExcFile" />
+					<DataGrid x:Name="dataGrid"
+							  d:ItemsSource="{d:SampleData ItemCount=5}"
+							  Margin="0,25,0,-25" />
+				</Grid>
+			</TabItem>
+			<TabItem Header="TabItem">
+				<Grid Background="#FFE5E5E5">
+					<DataGrid x:Name="dataGrid2"
+							  d:ItemsSource="{d:SampleData ItemCount=5}"
+							  Margin="0,25,0,-25" />
+				</Grid>
+			</TabItem>
+		</TabControl>
 
 	</Grid>
 </Window>

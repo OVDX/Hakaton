@@ -81,6 +81,31 @@ namespace Data_Analyst
 					if (worksheet.Cells[row, 3].Text != "" && worksheet.Cells[row, 4].Text != "")
 						productList.Add(new(worksheet.Cells[row, 3].Text, worksheet.Cells[row, 2].Text, DateTime.Parse(worksheet.Cells[row, 4].Text), Convert.ToDouble(worksheet.Cells[row, 6].Text), Convert.ToInt32(worksheet.Cells[row, 5].Text), worksheet.Cells[row, 1].Text));
 				}
+
+				List<List<Product>> groupProductByName = new();
+				List<string> nameList = new(); 
+				for (int i = 0; i < productList.Count; i++)
+				{
+					if (!nameList.Contains(productList[i].Name))
+					{
+						nameList.Add(productList[i].Name);
+						groupProductByName.Add(new List<Product>());
+						groupProductByName[^1].Add(productList[i]);
+					}
+					else
+					{
+						for (int j = 0; j < groupProductByName.Count; j++)
+						{
+							if (groupProductByName[j].Find(x => x.Name == productList[i].Name) != default)
+							{
+								groupProductByName[j].Add(new(productList[i]));
+								break;
+							}
+						}
+					}	
+				}
+				dataGrid2.ItemsSource = groupProductByName[0]; //треба доробити, зоб користувач міг вибирати за номенклатурою
+				
 			}
 
 			dataGrid.ItemsSource = data;
