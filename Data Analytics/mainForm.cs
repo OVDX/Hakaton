@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,13 +20,20 @@ namespace Data_Analytics
         }
 
         List<Product> listOfProducts = new List<Product>();
-
+        List<List<Product>> groupedByType = new List<List<Product>>();
         private void mainForm_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
 
+            listOfProducts = ExcelParsing.ReadExcFile();
+            groupedByType = Product.groupByType(listOfProducts);
+            typeCmb.Items.Clear();
+            var uniqueTypes = listOfProducts.Select(p => p.Type).Distinct().ToList();
 
-            
+            // Додавання унікальних типів до комбобоксу
+            typeCmb.Items.Clear(); // Очистити комбобокс перед додаванням нових елементів
+            typeCmb.Items.AddRange(uniqueTypes.ToArray());
+
 
             typeCmb.AutoCompleteSource = AutoCompleteSource.CustomSource;
             typeCmb.AutoCompleteSource = AutoCompleteSource.ListItems;
@@ -42,11 +50,27 @@ namespace Data_Analytics
 
         private void typeCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
+            nameCmb.SelectedIndex = -1;
+            nameCmb.Items.Clear();
 
+            var productsWithType = groupedByType.FirstOrDefault(group => group.Any(product => product.Type == typeCmb.Text));
+
+            if (productsWithType != null)
+            {
+
+                foreach (var product in productsWithType)
+                {
+                    if (!nameCmb.Items.Contains(product.Name))
+                    {
+                        nameCmb.Items.Add(product.Name);
+
+                    }
+                }
+            }
         }
-
         private void nameCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
+           
 
         }
     }

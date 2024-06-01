@@ -103,7 +103,7 @@
             this.nameCmb.FormattingEnabled = true;
             this.nameCmb.Location = new System.Drawing.Point(422, 83);
             this.nameCmb.Name = "nameCmb";
-            this.nameCmb.Size = new System.Drawing.Size(313, 45);
+            this.nameCmb.Size = new System.Drawing.Size(1097, 45);
             this.nameCmb.TabIndex = 2;
             this.nameCmb.SelectedIndexChanged += new System.EventHandler(this.nameCmb_SelectedIndexChanged);
             // 
