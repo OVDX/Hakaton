@@ -95,7 +95,7 @@ namespace Data_Analytics
                         foreach (var month in uniqueMonths)
                         {
                             var productsInMonthAndName = listOfProducts
-                                .Where(p => p.Name == name && p.Date.Month == month)
+                                .Where(p => p.Name == name && ukrainianCulture.DateTimeFormat.GetMonthName(p.Date.Month) == ukrainianCulture.DateTimeFormat.GetMonthName(month))
                                 .ToList();
 
                             columnSeries.Values.Add(productsInMonthAndName.Count);
@@ -104,11 +104,11 @@ namespace Data_Analytics
                         seriesCollection1.Add(columnSeries);
                     }
                 }
-                cartesianChart1.AxisX.Add(new Axis
-                {
-                    Title = "Місяць",
-                    Labels = uniqueMonths.Select(m => ukrainianCulture.DateTimeFormat.GetMonthName(m)).ToArray()
-                });
+                //cartesianChart1.AxisX.Add(new Axis
+                //{
+                //    Title = "Місяць",
+                //    Labels = uniqueMonths.Select(m => ukrainianCulture.DateTimeFormat.GetMonthName(m)).ToArray()
+                //});
                 cartesianChart1.Series = seriesCollection1;
                 cartesianChart1.Update();
                 factors();
@@ -121,36 +121,41 @@ namespace Data_Analytics
 			List<int> count = new List<int>();
             List<double> price = new List<double>();
 
-			for (int i = 0; i < listOfProducts.Count; i++)
-			{
-				if (!place.Contains(listOfProducts[i].Street))
-				{
-					place.Add(listOfProducts[i].Street);
-					count.Add(listOfProducts[i].Count);
-                    price.Add(listOfProducts[i].Price);
-				}
-				else
-				{
-					count[place.IndexOf(listOfProducts[i].Street)] += listOfProducts[i].Count;
-                    price[place.IndexOf(listOfProducts[i].Street)] += listOfProducts[i].Price;
-				}
-			}
+            for (int i = 0; i < listOfProducts.Count; i++)
+            {
+                if (listOfProducts[i].Name == nameCmb.Text)
+                {
+                    if (!place.Contains(listOfProducts[i].Street))
+                    {
+                        place.Add(listOfProducts[i].Street);
+                        count.Add(listOfProducts[i].Count);
+                        price.Add(listOfProducts[i].Price);
+                    }
+                    else
+                    {
 
-			for (int i = 0; i < place.Count; i++)
-			{
-				seriesCollection.Add(new PieSeries
-				{
-					Title = place[i],
-					Values = new ChartValues<int> { count[i] },
-					DataLabels = true
-				});
+                        count[place.IndexOf(listOfProducts[i].Street)] += listOfProducts[i].Count;
+                        price[place.IndexOf(listOfProducts[i].Street)] += listOfProducts[i].Price;
+
+                    }
+                }
+            }
+
+            for (int i = 0; i < place.Count; i++)
+            {
+                seriesCollection.Add(new PieSeries
+                {
+                    Title = place[i],
+                    Values = new ChartValues<int> { count[i] },
+                    DataLabels = true
+                });
                 secondSeriesCollection.Add(new PieSeries
-				{
-					Title = place[i],
-					Values = new ChartValues<double> { price[i] },
-					DataLabels = true
-				});
-			}
+                {
+                    Title = place[i],
+                    Values = new ChartValues<double> { price[i] },
+                    DataLabels = true
+                });
+            }
 
 			countPlace.Series = seriesCollection;
             pricePlace.Series = secondSeriesCollection;
