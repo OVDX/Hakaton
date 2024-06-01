@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace Data_Analytics
 {
@@ -50,6 +51,8 @@ namespace Data_Analytics
             nameCmb.MaxDropDownItems = 5;
         }
 
+
+
         private void typeCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
             nameCmb.SelectedIndex = -1;
@@ -77,6 +80,7 @@ namespace Data_Analytics
                 SeriesCollection seriesCollection1 = new SeriesCollection();
                 var uniqueMonths = listOfProducts.Select(p => p.Date.Month).Distinct().ToList();
                 var uniqueNames = listOfProducts.Select(p => p.Name).Distinct().ToList();
+                CultureInfo ukrainianCulture = new CultureInfo("uk-UA");
 
                 foreach (var name in uniqueNames)
                 {
@@ -90,22 +94,24 @@ namespace Data_Analytics
 
                         foreach (var month in uniqueMonths)
                         {
-                            // Фільтруємо продукти за поточну назву та місяць
                             var productsInMonthAndName = listOfProducts
                                 .Where(p => p.Name == name && p.Date.Month == month)
                                 .ToList();
 
-                            // Додаємо кількість продуктів у місяць для поточної назви продукту
                             columnSeries.Values.Add(productsInMonthAndName.Count);
                         }
 
-                        // Додаємо створений рядок даних до колекції
                         seriesCollection1.Add(columnSeries);
                     }
                 }
-
+                cartesianChart1.AxisX.Add(new Axis
+                {
+                    Title = "Місяць",
+                    Labels = uniqueMonths.Select(m => ukrainianCulture.DateTimeFormat.GetMonthName(m)).ToArray()
+                });
                 cartesianChart1.Series = seriesCollection1;
                 cartesianChart1.Update();
+                factors();
             }
 
             SeriesCollection seriesCollection = new SeriesCollection();
@@ -149,5 +155,75 @@ namespace Data_Analytics
 			countPlace.Series = seriesCollection;
             pricePlace.Series = secondSeriesCollection;
 		}
+
+
+        private void factors()
+        {
+            string type = typeCmb.Text;
+            string name = nameCmb.Text;
+
+            // Знайдемо групу продуктів за типом
+            var productsWithType = groupedByType.FirstOrDefault(group => group.Any(product => product.Type == type));
+
+            if (productsWithType == null)
+            {
+                MessageBox.Show("Продуктів з обраним типом не знайдено.");
+                return;
+            }
+
+            // Загальна кількість продуктів за всі місяці
+            int countAll = productsWithType.Sum(product => product.Count);
+
+            // Розрахунок середньої кількості за місяць
+            double averageAllMonth = countAll / 6.0;
+
+            // Унікальні місяці
+            var uniqueMonths = productsWithType.Select(p => p.Date.Month).Distinct().ToList();
+
+            List<double> ratios = new List<double>();
+            cartesianChart1.Visible = true;
+            SeriesCollection seriesCollection1 = new SeriesCollection();
+
+            // Колонка для діаграми
+            var columnSeries = new ColumnSeries
+            {
+                Title = name,
+                Values = new ChartValues<double>()
+            };
+
+            foreach (var uniqueMonth in uniqueMonths)
+            {
+                // Загальна кількість продуктів за конкретний місяць
+                int countForMonth = productsWithType.Where(p => p.Date.Month == uniqueMonth).Sum(p => p.Count);
+
+                // Відношення до середньої кількості, перетворене у відсотки
+                double ratio = Math.Round((countForMonth / averageAllMonth) * 100, 2);
+                ratios.Add(ratio);
+            }
+
+            foreach (var ratio in ratios)
+            {
+                columnSeries.Values.Add(ratio);
+            }
+
+            seriesCollection1.Add(columnSeries);
+            cartesianChart2.Series = seriesCollection1;
+
+            // Налаштування осі Y для відображення у відсотках
+            cartesianChart2.AxisY.Clear();
+            cartesianChart2.AxisY.Add(new Axis
+            {
+                Title = "Відсотки",
+                LabelFormatter = value => value + "%"
+            });
+
+            // Оновлення діаграми
+            cartesianChart2.Update();
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -40,6 +40,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -56,7 +57,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1717, 876);
+            this.tabControl1.Size = new System.Drawing.Size(1605, 1055);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -70,10 +71,11 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage1.Size = new System.Drawing.Size(1709, 826);
+            this.tabPage1.Size = new System.Drawing.Size(1597, 1005);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Номенклатури";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // label2
             // 
@@ -120,7 +122,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 46);
             this.tabPage5.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1555, 557);
+            this.tabPage5.Size = new System.Drawing.Size(1538, 720);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "По місцю продажу";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -145,22 +147,22 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.cartesianChart2);
             this.tabPage3.Controls.Add(this.cartesianChart1);
             this.tabPage3.Location = new System.Drawing.Point(4, 46);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage3.Size = new System.Drawing.Size(1555, 557);
+            this.tabPage3.Size = new System.Drawing.Size(1538, 720);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Кількість за місяці";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // cartesianChart1
             // 
-            this.cartesianChart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cartesianChart1.Location = new System.Drawing.Point(3, 2);
+            this.cartesianChart1.Location = new System.Drawing.Point(24, 47);
             this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(1549, 553);
+            this.cartesianChart1.Size = new System.Drawing.Size(768, 414);
             this.cartesianChart1.TabIndex = 0;
             this.cartesianChart1.Text = "cartesianChart1";
             // 
@@ -168,18 +170,26 @@
             // 
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage5);
-            this.tabControl2.Location = new System.Drawing.Point(45, 202);
+            this.tabControl2.Location = new System.Drawing.Point(45, 177);
             this.tabControl2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1563, 607);
+            this.tabControl2.Size = new System.Drawing.Size(1546, 770);
             this.tabControl2.TabIndex = 4;
+            // 
+            // cartesianChart2
+            // 
+            this.cartesianChart2.Location = new System.Drawing.Point(810, 30);
+            this.cartesianChart2.Name = "cartesianChart2";
+            this.cartesianChart2.Size = new System.Drawing.Size(701, 431);
+            this.cartesianChart2.TabIndex = 1;
+            this.cartesianChart2.Text = "cartesianChart2";
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1717, 876);
+            this.ClientSize = new System.Drawing.Size(1605, 1055);
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "mainForm";
@@ -209,5 +219,6 @@
         private System.Windows.Forms.TabPage tabPage5;
         private LiveCharts.WinForms.PieChart pricePlace;
         private LiveCharts.WinForms.PieChart countPlace;
+        private LiveCharts.WinForms.CartesianChart cartesianChart2;
     }
 }
