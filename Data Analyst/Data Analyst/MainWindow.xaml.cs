@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using OfficeOpenXml;
+using System.Dynamic;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -44,10 +45,40 @@ namespace Data_Analyst
 			}
 			FileInfo fileInfo = new(filePath);
 			ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+			var data = new List<ExpandoObject>();
+
 			using (ExcelPackage package = new(fileInfo))
 			{
 				ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+
+				// Generate DataGrid columns based on the header row
+				for (int col = 1; col <= worksheet.Dimension.End.Column; col++)
+				{
+					dataGrid.Columns.Add(new DataGridTextColumn
+					{
+						Header = worksheet.Cells[1, col].Text,
+						Binding = new Binding($"Column{col}")
+					});
+					System.Diagnostics.Trace.WriteLine(dataGrid.Columns[col - 1].Header); // виводить назву стовбця в консоль дебагу
+				}
+				
+
+				// Iterate through rows and add to the list
+				for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
+				{
+					dynamic expandoRow = new ExpandoObject();
+					var expandoDict = (IDictionary<string, object>)expandoRow;
+
+					for (int col = 1; col <= worksheet.Dimension.End.Column; col++)
+					{
+						expandoDict[$"Column{col}"] = worksheet.Cells[row, col].Text;
+					}
+
+					data.Add(expandoRow);
+				}
 			}
+
+			dataGrid.ItemsSource = data;
 		}
 	}
 }
