@@ -266,7 +266,11 @@ namespace Data_Analytics
                 LabelFormatter = value => value + "%"
      
             }) ;
-
+            cartesianChart2.AxisX.Clear();
+            cartesianChart2.AxisX.Add(new Axis
+            {
+                Labels = monthLabels
+            });
             // Оновлення діаграми
             cartesianChart2.Update();
         }
