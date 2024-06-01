@@ -42,8 +42,9 @@ namespace Data_Analyst
 				MessageBox.Show("Please select a valid Excel file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				return;
 			}
-			FileInfo fileInfo = new FileInfo(filePath);
-			using (ExcelPackage package = new ExcelPackage(fileInfo))
+			FileInfo fileInfo = new(filePath);
+			ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+			using (ExcelPackage package = new(fileInfo))
 			{
 				ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
 			}
