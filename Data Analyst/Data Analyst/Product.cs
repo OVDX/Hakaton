@@ -13,14 +13,15 @@ namespace Data_Analyst
         public string Type { get; set; }
         public DateTime Date { get; set; }
         public decimal Price { get; set; }
-        public int  Count { get; set; }
-        public Product(string name, string type, DateTime date, decimal price, int count)
+        public int  Count { get; set; } 
+        public Product(string name, string type, DateTime date, decimal price, int count, string street)
         {
             Name = name;
             Type = type;
             Date = date;
             Price = price;
             Count = count;
+            this.street = street;
         }
 
     }
