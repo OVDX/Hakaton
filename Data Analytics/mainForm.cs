@@ -71,7 +71,44 @@ namespace Data_Analytics
         }
         private void nameCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
-			SeriesCollection seriesCollection = new SeriesCollection();
+            if (nameCmb.SelectedIndex != -1)
+            {
+                cartesianChart1.Visible = true;
+                SeriesCollection seriesCollection1 = new SeriesCollection();
+                var uniqueMonths = listOfProducts.Select(p => p.Date.Month).Distinct().ToList();
+                var uniqueNames = listOfProducts.Select(p => p.Name).Distinct().ToList();
+
+                foreach (var name in uniqueNames)
+                {
+                    if (name == nameCmb.Text)
+                    {
+                        var columnSeries = new ColumnSeries
+                        {
+                            Title = name,
+                            Values = new ChartValues<int>()
+                        };
+
+                        foreach (var month in uniqueMonths)
+                        {
+                            // Фільтруємо продукти за поточну назву та місяць
+                            var productsInMonthAndName = listOfProducts
+                                .Where(p => p.Name == name && p.Date.Month == month)
+                                .ToList();
+
+                            // Додаємо кількість продуктів у місяць для поточної назви продукту
+                            columnSeries.Values.Add(productsInMonthAndName.Count);
+                        }
+
+                        // Додаємо створений рядок даних до колекції
+                        seriesCollection1.Add(columnSeries);
+                    }
+                }
+
+                cartesianChart1.Series = seriesCollection1;
+                cartesianChart1.Update();
+            }
+
+            SeriesCollection seriesCollection = new SeriesCollection();
 			SeriesCollection secondSeriesCollection = new SeriesCollection();
 
 			List<string> place = new List<string>();
