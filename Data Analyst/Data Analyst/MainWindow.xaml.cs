@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using OfficeOpenXml;
+using System.Diagnostics;
 using System.Dynamic;
 using System.IO;
 using System.Text;
@@ -46,6 +47,7 @@ namespace Data_Analyst
 			FileInfo fileInfo = new(filePath);
 			ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 			var data = new List<ExpandoObject>();
+			var productList = new List<Product>();
 
 			using (ExcelPackage package = new(fileInfo))
 			{
@@ -59,7 +61,7 @@ namespace Data_Analyst
 						Header = worksheet.Cells[1, col].Text,
 						Binding = new Binding($"Column{col}")
 					});
-					System.Diagnostics.Trace.WriteLine(dataGrid.Columns[col - 1].Header); // виводить назву стовбця в консоль дебагу
+					Trace.WriteLine(dataGrid.Columns[col - 1].Header); // виводить назву стовбця в консоль дебагу
 				}
 				
 
@@ -75,6 +77,9 @@ namespace Data_Analyst
 					}
 
 					data.Add(expandoRow);
+					// парсить в продукт кожен запис
+					if (worksheet.Cells[row, 3].Text != "" && worksheet.Cells[row, 4].Text != "")
+						productList.Add(new(worksheet.Cells[row, 3].Text, worksheet.Cells[row, 2].Text, DateTime.Parse(worksheet.Cells[row, 4].Text), Convert.ToDouble(worksheet.Cells[row, 6].Text), Convert.ToInt32(worksheet.Cells[row, 5].Text), worksheet.Cells[row, 1].Text));
 				}
 			}
 
