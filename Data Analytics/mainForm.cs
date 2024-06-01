@@ -1,4 +1,6 @@
 ﻿using Data_Analyst;
+using LiveCharts.Wpf;
+using LiveCharts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +11,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Data_Analytics
 {
@@ -70,17 +71,35 @@ namespace Data_Analytics
         }
         private void nameCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Series ser = new Series("place");
-            ser.ChartType = SeriesChartType.Pie;
-            List<(string, int)> placeAndCount = new List<(string, int)>();
-            List<string> place = new List<string>();
-            for(int i = 0; i < listOfProducts.Count; i++)
-            {
-                if (place.Find(x => x == listOfProducts[i].Street) == default)
-                {
+			SeriesCollection seriesCollection = new SeriesCollection();
 
-                }
+			List<string> place = new List<string>();
+			List<int> count = new List<int>();
+
+			for (int i = 0; i < listOfProducts.Count; i++)
+			{
+				if (!place.Contains(listOfProducts[i].Street))
+				{
+					place.Add(listOfProducts[i].Street);
+					count.Add(listOfProducts[i].Count);
+				}
+				else
+				{
+					count[place.IndexOf(listOfProducts[i].Street)] += listOfProducts[i].Count;
+				}
 			}
-        }
+
+			for (int i = 0; i < place.Count; i++)
+			{
+				seriesCollection.Add(new PieSeries
+				{
+					Title = place[i],
+					Values = new ChartValues<int> { count[i] },
+					DataLabels = true
+				});
+			}
+
+			countPlace.Series = seriesCollection;
+		}
     }
 }
