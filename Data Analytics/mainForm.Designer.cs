@@ -42,6 +42,7 @@
 			this.pieChart1 = new LiveCharts.Wpf.PieChart();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
 			this.countPlace = new LiveCharts.WinForms.PieChart();
+			this.pricePlace = new LiveCharts.WinForms.PieChart();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl2.SuspendLayout();
@@ -175,6 +176,7 @@
 			// 
 			// tabPage5
 			// 
+			this.tabPage5.Controls.Add(this.pricePlace);
 			this.tabPage5.Controls.Add(this.countPlace);
 			this.tabPage5.Location = new System.Drawing.Point(4, 39);
 			this.tabPage5.Name = "tabPage5";
@@ -190,6 +192,14 @@
 			this.countPlace.Size = new System.Drawing.Size(478, 444);
 			this.countPlace.TabIndex = 0;
 			this.countPlace.Text = "pieChart2";
+			// 
+			// pricePlace
+			// 
+			this.pricePlace.Location = new System.Drawing.Point(592, 3);
+			this.pricePlace.Name = "pricePlace";
+			this.pricePlace.Size = new System.Drawing.Size(559, 429);
+			this.pricePlace.TabIndex = 1;
+			this.pricePlace.Text = "pieChart2";
 			// 
 			// mainForm
 			// 
@@ -227,5 +237,6 @@
 		private LiveCharts.Wpf.PieChart pieChart1;
 		private System.Windows.Forms.TabPage tabPage5;
 		private LiveCharts.WinForms.PieChart countPlace;
+		private LiveCharts.WinForms.PieChart pricePlace;
 	}
 }

@@ -72,9 +72,11 @@ namespace Data_Analytics
         private void nameCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
 			SeriesCollection seriesCollection = new SeriesCollection();
+			SeriesCollection secondSeriesCollection = new SeriesCollection();
 
 			List<string> place = new List<string>();
 			List<int> count = new List<int>();
+            List<double> price = new List<double>();
 
 			for (int i = 0; i < listOfProducts.Count; i++)
 			{
@@ -82,10 +84,12 @@ namespace Data_Analytics
 				{
 					place.Add(listOfProducts[i].Street);
 					count.Add(listOfProducts[i].Count);
+                    price.Add(listOfProducts[i].Price);
 				}
 				else
 				{
 					count[place.IndexOf(listOfProducts[i].Street)] += listOfProducts[i].Count;
+                    price[place.IndexOf(listOfProducts[i].Street)] += listOfProducts[i].Price;
 				}
 			}
 
@@ -97,9 +101,16 @@ namespace Data_Analytics
 					Values = new ChartValues<int> { count[i] },
 					DataLabels = true
 				});
+                secondSeriesCollection.Add(new PieSeries
+				{
+					Title = place[i],
+					Values = new ChartValues<double> { price[i] },
+					DataLabels = true
+				});
 			}
 
 			countPlace.Series = seriesCollection;
+            pricePlace.Series = secondSeriesCollection;
 		}
     }
 }
