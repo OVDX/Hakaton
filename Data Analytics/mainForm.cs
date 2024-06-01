@@ -105,7 +105,6 @@ namespace Data_Analytics
                             monthLabels.Add(ukrainianCulture.DateTimeFormat.GetMonthName(month));
 
                         }
-
                         seriesCollection1.Add(columnSeries);
                         cartesianChart1.AxisX.Clear();
                         cartesianChart1.AxisX.Add(new Axis

@@ -35,12 +35,16 @@
             this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.pricePlace = new LiveCharts.WinForms.CartesianChart();
+            this.countPlace = new LiveCharts.WinForms.CartesianChart();
             this.label2 = new System.Windows.Forms.Label();
             this.nameCmb = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.typeCmb = new System.Windows.Forms.ComboBox();
-            this.countPlace = new LiveCharts.WinForms.CartesianChart();
-            this.pricePlace = new LiveCharts.WinForms.CartesianChart();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -90,6 +94,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label4);
+            this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Controls.Add(this.cartesianChart2);
             this.tabPage3.Controls.Add(this.cartesianChart1);
             this.tabPage3.Location = new System.Drawing.Point(4, 46);
@@ -119,15 +125,33 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.label6);
+            this.tabPage5.Controls.Add(this.label5);
             this.tabPage5.Controls.Add(this.pricePlace);
             this.tabPage5.Controls.Add(this.countPlace);
             this.tabPage5.Location = new System.Drawing.Point(4, 46);
             this.tabPage5.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1538, 720);
+            this.tabPage5.Size = new System.Drawing.Size(1855, 720);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "По місцю продажу";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // pricePlace
+            // 
+            this.pricePlace.Location = new System.Drawing.Point(809, 3);
+            this.pricePlace.Name = "pricePlace";
+            this.pricePlace.Size = new System.Drawing.Size(715, 535);
+            this.pricePlace.TabIndex = 3;
+            this.pricePlace.Text = "cartesianChart3";
+            // 
+            // countPlace
+            // 
+            this.countPlace.Location = new System.Drawing.Point(3, 4);
+            this.countPlace.Name = "countPlace";
+            this.countPlace.Size = new System.Drawing.Size(800, 550);
+            this.countPlace.TabIndex = 2;
+            this.countPlace.Text = "cartesianChart3";
             // 
             // label2
             // 
@@ -167,21 +191,41 @@
             this.typeCmb.TabIndex = 0;
             this.typeCmb.SelectedIndexChanged += new System.EventHandler(this.typeCmb_SelectedIndexChanged);
             // 
-            // countPlace
+            // label3
             // 
-            this.countPlace.Location = new System.Drawing.Point(3, 4);
-            this.countPlace.Name = "countPlace";
-            this.countPlace.Size = new System.Drawing.Size(800, 550);
-            this.countPlace.TabIndex = 2;
-            this.countPlace.Text = "cartesianChart3";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(293, 489);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(375, 38);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Кількість продажу за місяць";
             // 
-            // pricePlace
+            // label4
             // 
-            this.pricePlace.Location = new System.Drawing.Point(809, 3);
-            this.pricePlace.Name = "pricePlace";
-            this.pricePlace.Size = new System.Drawing.Size(715, 535);
-            this.pricePlace.TabIndex = 3;
-            this.pricePlace.Text = "cartesianChart3";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(1218, 489);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(403, 38);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Місячний коефіцієнт продажу";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(221, 580);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(382, 38);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Кількість продажу за місцем";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(995, 580);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(336, 38);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Сума продажу за місцем";
             // 
             // mainForm
             // 
@@ -198,7 +242,9 @@
             this.tabPage1.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -218,5 +264,9 @@
         private LiveCharts.WinForms.CartesianChart cartesianChart2;
         private LiveCharts.WinForms.CartesianChart pricePlace;
         private LiveCharts.WinForms.CartesianChart countPlace;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
     }
 }
