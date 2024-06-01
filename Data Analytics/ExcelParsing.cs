@@ -1,10 +1,7 @@
-﻿using OfficeOpenXml.Style;
+﻿using Data_Analyst;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,19 +10,12 @@ using System.Windows.Forms;
 
 namespace Data_Analytics
 {
-    public partial class ExcelParser : Form
+    public class ExcelParsing
     {
-        public ExcelParser()
+        public static List<Product> ReadExcFile()
         {
-            InitializeComponent();
-        }
+            List<Product> products = new List<Product>();
 
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
-        public void ReadExcFile()
-        {
             string filePath = null;
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -39,22 +29,28 @@ namespace Data_Analytics
                     filePath = openFileDialog.FileName;
                 }
             }
-           
+
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
                 MessageBox.Show("Please select a valid Excel file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return null;
             }
             FileInfo fileInfo = new FileInfo(filePath);
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage package = new ExcelPackage(fileInfo))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+
+                int rowCount = worksheet.Dimension.Rows;
+                int colCount = worksheet.Dimension.Columns;
+
+                for (int row = 2; row <= rowCount-1; row++) // Починаємо з другого рядка, якщо в першому заголовки
+                {
+                    products.Add(new Product(worksheet.Cells[row, 3].Value?.ToString(), worksheet.Cells[row, 2].Value?.ToString(), DateTime.Parse(worksheet.Cells[row, 4].Text), double.Parse(worksheet.Cells[row, 6].Value?.ToString()), int.Parse(worksheet.Cells[row, 5].Value?.ToString()), worksheet.Cells[row, 1].Value?.ToString()));
+                }
             }
 
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ReadExcFile();
+            return products;
         }
     }
 }

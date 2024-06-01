@@ -16,7 +16,7 @@ namespace Data_Analytics
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ExcelParser());
+            Application.Run(new mainForm());
         }
     }
 }
