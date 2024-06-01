@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Data_Analytics
 {
@@ -63,15 +64,23 @@ namespace Data_Analytics
                     if (!nameCmb.Items.Contains(product.Name))
                     {
                         nameCmb.Items.Add(product.Name);
-
                     }
                 }
             }
         }
         private void nameCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            Series ser = new Series("place");
+            ser.ChartType = SeriesChartType.Pie;
+            List<(string, int)> placeAndCount = new List<(string, int)>();
+            List<string> place = new List<string>();
+            for(int i = 0; i < listOfProducts.Count; i++)
+            {
+                if (place.Find(x => x == listOfProducts[i].Street) == default)
+                {
 
+                }
+			}
         }
     }
 }
