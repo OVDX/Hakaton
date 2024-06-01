@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using System.Windows.Media;
+using LiveCharts.WinForms;
 
 namespace Data_Analytics
 {
@@ -81,6 +83,7 @@ namespace Data_Analytics
                 var uniqueMonths = listOfProducts.Select(p => p.Date.Month).Distinct().ToList();
                 var uniqueNames = listOfProducts.Select(p => p.Name).Distinct().ToList();
                 CultureInfo ukrainianCulture = new CultureInfo("uk-UA");
+                var monthLabels = new List<string>();
 
                 foreach (var name in uniqueNames)
                 {
@@ -99,26 +102,28 @@ namespace Data_Analytics
                                 .ToList();
 
                             columnSeries.Values.Add(productsInMonthAndName.Count);
+                            monthLabels.Add(ukrainianCulture.DateTimeFormat.GetMonthName(month));
+
                         }
 
                         seriesCollection1.Add(columnSeries);
+                        cartesianChart1.AxisX.Clear();
+                        cartesianChart1.AxisX.Add(new Axis
+                        {
+                            Labels = monthLabels
+                        });
                     }
                 }
-                //cartesianChart1.AxisX.Add(new Axis
-                //{
-                //    Title = "Місяць",
-                //    Labels = uniqueMonths.Select(m => ukrainianCulture.DateTimeFormat.GetMonthName(m)).ToArray()
-                //});
                 cartesianChart1.Series = seriesCollection1;
                 cartesianChart1.Update();
                 factors();
             }
 
             SeriesCollection seriesCollection = new SeriesCollection();
-			SeriesCollection secondSeriesCollection = new SeriesCollection();
+            SeriesCollection secondSeriesCollection = new SeriesCollection();
 
-			List<string> place = new List<string>();
-			List<int> count = new List<int>();
+            List<string> place = new List<string>();
+            List<int> count = new List<int>();
             List<double> price = new List<double>();
 
             for (int i = 0; i < listOfProducts.Count; i++)
@@ -133,40 +138,78 @@ namespace Data_Analytics
                     }
                     else
                     {
-
-                        count[place.IndexOf(listOfProducts[i].Street)] += listOfProducts[i].Count;
-                        price[place.IndexOf(listOfProducts[i].Street)] += listOfProducts[i].Price;
-
+                        int index = place.IndexOf(listOfProducts[i].Street);
+                        count[index] += listOfProducts[i].Count;
+                        price[index] += listOfProducts[i].Price;
+                    }
+                }
+            }
+            for (int i = 1; i < count.Count; i++)
+            {
+                for (int j = 1; j < count.Count - (i - 1); j++)
+                {
+                    if (count[j] > count[j - 1])
+                    {
+                        SwapValues<int>(count, j, j - 1);
+                        SwapValues<double>(price, j, j - 1);
+                        SwapValues<string>(place, j, j - 1);
                     }
                 }
             }
 
-            for (int i = 0; i < place.Count; i++)
+            seriesCollection.Add(new ColumnSeries
             {
-                seriesCollection.Add(new PieSeries
-                {
-                    Title = place[i],
-                    Values = new ChartValues<int> { count[i] },
-                    DataLabels = true
-                });
-                secondSeriesCollection.Add(new PieSeries
-                {
-                    Title = place[i],
-                    Values = new ChartValues<double> { price[i] },
-                    DataLabels = true
-                });
-            }
+                Title = "Count",
+                Values = new ChartValues<int>(count),
+                DataLabels = true
+            });
 
-			countPlace.Series = seriesCollection;
+            secondSeriesCollection.Add(new ColumnSeries
+            {
+                Title = "Price",
+                Values = new ChartValues<double>(price),
+                DataLabels = true
+            });
+
+            countPlace.Series = seriesCollection;
+            countPlace.AxisX.Clear();
+            countPlace.AxisY.Clear();
+            countPlace.AxisX.Add(new Axis
+            {
+                Title = "Place",
+                Labels = place
+            });
+            countPlace.AxisY.Add(new Axis
+            {
+                Title = "Count"
+            });
+
             pricePlace.Series = secondSeriesCollection;
-		}
-
+            pricePlace.AxisX.Clear();
+            pricePlace.AxisY.Clear();
+            pricePlace.AxisX.Add(new Axis
+            {
+                Title = "Place",
+                Labels = place
+            });
+            pricePlace.AxisY.Add(new Axis
+            {
+                Title = "Price"
+            });
+        }
+        public static void SwapValues<T>(List<T> source, int index1, int index2)
+        {
+            T temp = source[index1];
+            source[index1] = source[index2];
+            source[index2] = temp;
+        }
 
         private void factors()
         {
             string type = typeCmb.Text;
             string name = nameCmb.Text;
-
+            var monthLabels = new List<string>();
+            CultureInfo ukrainianCulture = new CultureInfo("uk-UA");
             // Знайдемо групу продуктів за типом
             var productsWithType = groupedByType.FirstOrDefault(group => group.Any(product => product.Type == type));
 
@@ -199,9 +242,10 @@ namespace Data_Analytics
             foreach (var uniqueMonth in uniqueMonths)
             {
                 // Загальна кількість продуктів за конкретний місяць
-                int countForMonth = productsWithType.Where(p => p.Date.Month == uniqueMonth).Sum(p => p.Count);
+                int countForMonth = productsWithType.Where(p => ukrainianCulture.DateTimeFormat.GetMonthName(p.Date.Month) == ukrainianCulture.DateTimeFormat.GetMonthName(uniqueMonth)).Sum(p => p.Count);
 
                 // Відношення до середньої кількості, перетворене у відсотки
+                monthLabels.Add(ukrainianCulture.DateTimeFormat.GetMonthName(uniqueMonth));
                 double ratio = Math.Round((countForMonth / averageAllMonth) * 100, 2);
                 ratios.Add(ratio);
             }
@@ -212,6 +256,7 @@ namespace Data_Analytics
             }
 
             seriesCollection1.Add(columnSeries);
+
             cartesianChart2.Series = seriesCollection1;
 
             // Налаштування осі Y для відображення у відсотках
@@ -220,7 +265,8 @@ namespace Data_Analytics
             {
                 Title = "Відсотки",
                 LabelFormatter = value => value + "%"
-            });
+     
+            }) ;
 
             // Оновлення діаграми
             cartesianChart2.Update();

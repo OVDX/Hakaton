@@ -30,22 +30,22 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
+            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.nameCmb = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.typeCmb = new System.Windows.Forms.ComboBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.countPlace = new LiveCharts.WinForms.PieChart();
-            this.pricePlace = new LiveCharts.WinForms.PieChart();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
+            this.countPlace = new LiveCharts.WinForms.CartesianChart();
+            this.pricePlace = new LiveCharts.WinForms.CartesianChart();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -57,7 +57,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1605, 1055);
+            this.tabControl1.Size = new System.Drawing.Size(1924, 1055);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -71,11 +71,63 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage1.Size = new System.Drawing.Size(1597, 1005);
+            this.tabPage1.Size = new System.Drawing.Size(1916, 1005);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Номенклатури";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage3);
+            this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Location = new System.Drawing.Point(45, 177);
+            this.tabControl2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(1863, 770);
+            this.tabControl2.TabIndex = 4;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.cartesianChart2);
+            this.tabPage3.Controls.Add(this.cartesianChart1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 46);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage3.Size = new System.Drawing.Size(1855, 720);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Text = "Кількість за місяці";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // cartesianChart2
+            // 
+            this.cartesianChart2.Location = new System.Drawing.Point(960, 47);
+            this.cartesianChart2.Name = "cartesianChart2";
+            this.cartesianChart2.Size = new System.Drawing.Size(878, 431);
+            this.cartesianChart2.TabIndex = 1;
+            this.cartesianChart2.Text = "cartesianChart2";
+            // 
+            // cartesianChart1
+            // 
+            this.cartesianChart1.Location = new System.Drawing.Point(24, 47);
+            this.cartesianChart1.Name = "cartesianChart1";
+            this.cartesianChart1.Size = new System.Drawing.Size(864, 414);
+            this.cartesianChart1.TabIndex = 0;
+            this.cartesianChart1.Text = "cartesianChart1";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.pricePlace);
+            this.tabPage5.Controls.Add(this.countPlace);
+            this.tabPage5.Location = new System.Drawing.Point(4, 46);
+            this.tabPage5.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(1538, 720);
+            this.tabPage5.TabIndex = 2;
+            this.tabPage5.Text = "По місцю продажу";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -115,81 +167,27 @@
             this.typeCmb.TabIndex = 0;
             this.typeCmb.SelectedIndexChanged += new System.EventHandler(this.typeCmb_SelectedIndexChanged);
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.pricePlace);
-            this.tabPage5.Controls.Add(this.countPlace);
-            this.tabPage5.Location = new System.Drawing.Point(4, 46);
-            this.tabPage5.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1538, 720);
-            this.tabPage5.TabIndex = 2;
-            this.tabPage5.Text = "По місцю продажу";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
             // countPlace
             // 
-            this.countPlace.Location = new System.Drawing.Point(4, 4);
-            this.countPlace.Margin = new System.Windows.Forms.Padding(4);
+            this.countPlace.Location = new System.Drawing.Point(3, 4);
             this.countPlace.Name = "countPlace";
-            this.countPlace.Size = new System.Drawing.Size(637, 546);
-            this.countPlace.TabIndex = 0;
-            this.countPlace.Text = "pieChart2";
+            this.countPlace.Size = new System.Drawing.Size(800, 550);
+            this.countPlace.TabIndex = 2;
+            this.countPlace.Text = "cartesianChart3";
             // 
             // pricePlace
             // 
-            this.pricePlace.Location = new System.Drawing.Point(789, 4);
-            this.pricePlace.Margin = new System.Windows.Forms.Padding(4);
+            this.pricePlace.Location = new System.Drawing.Point(809, 3);
             this.pricePlace.Name = "pricePlace";
-            this.pricePlace.Size = new System.Drawing.Size(745, 528);
-            this.pricePlace.TabIndex = 1;
-            this.pricePlace.Text = "pieChart2";
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.cartesianChart2);
-            this.tabPage3.Controls.Add(this.cartesianChart1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 46);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage3.Size = new System.Drawing.Size(1538, 720);
-            this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "Кількість за місяці";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // cartesianChart1
-            // 
-            this.cartesianChart1.Location = new System.Drawing.Point(24, 47);
-            this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(768, 414);
-            this.cartesianChart1.TabIndex = 0;
-            this.cartesianChart1.Text = "cartesianChart1";
-            // 
-            // tabControl2
-            // 
-            this.tabControl2.Controls.Add(this.tabPage3);
-            this.tabControl2.Controls.Add(this.tabPage5);
-            this.tabControl2.Location = new System.Drawing.Point(45, 177);
-            this.tabControl2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1546, 770);
-            this.tabControl2.TabIndex = 4;
-            // 
-            // cartesianChart2
-            // 
-            this.cartesianChart2.Location = new System.Drawing.Point(810, 30);
-            this.cartesianChart2.Name = "cartesianChart2";
-            this.cartesianChart2.Size = new System.Drawing.Size(701, 431);
-            this.cartesianChart2.TabIndex = 1;
-            this.cartesianChart2.Text = "cartesianChart2";
+            this.pricePlace.Size = new System.Drawing.Size(715, 535);
+            this.pricePlace.TabIndex = 3;
+            this.pricePlace.Text = "cartesianChart3";
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1605, 1055);
+            this.ClientSize = new System.Drawing.Size(1924, 1055);
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "mainForm";
@@ -198,9 +196,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -217,8 +215,8 @@
         private System.Windows.Forms.TabPage tabPage3;
         private LiveCharts.WinForms.CartesianChart cartesianChart1;
         private System.Windows.Forms.TabPage tabPage5;
-        private LiveCharts.WinForms.PieChart pricePlace;
-        private LiveCharts.WinForms.PieChart countPlace;
         private LiveCharts.WinForms.CartesianChart cartesianChart2;
+        private LiveCharts.WinForms.CartesianChart pricePlace;
+        private LiveCharts.WinForms.CartesianChart countPlace;
     }
 }
