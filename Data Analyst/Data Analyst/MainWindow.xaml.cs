@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using Microsoft.Win32;
+using OfficeOpenXml;
+using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,33 +23,30 @@ namespace Data_Analyst
         {
             InitializeComponent();
         }
-    }
-    public void ReadExcFile()
-    {
-        string filePath = null;
-        using (OpenFileDialog openFileDialog = new OpenFileDialog())
-        {
-            openFileDialog.InitialDirectory = "c:\\";
-            openFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
-            openFileDialog.FilterIndex = 1;
-            openFileDialog.RestoreDirectory = true;
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                filePath = openFileDialog.FileName;
-            }
-        }
-
-        if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
-        {
-            MessageBox.Show("Please select a valid Excel file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
-        }
-        FileInfo fileInfo = new FileInfo(filePath);
-        using (ExcelPackage package = new ExcelPackage(fileInfo))
-        {
-            ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
-        }
-
-    }
+		public void ReadExcFile(object sender, RoutedEventArgs e)
+		{
+			string filePath = "";
+			OpenFileDialog openFileDialog = new()
+			{
+				InitialDirectory = "c:\\",
+				Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*",
+				FilterIndex = 1,
+				RestoreDirectory = true
+			};
+			if (openFileDialog.ShowDialog() == true)
+			{
+				filePath = openFileDialog.FileName;
+			}
+			if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+			{
+				MessageBox.Show("Please select a valid Excel file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
+			}
+			FileInfo fileInfo = new FileInfo(filePath);
+			using (ExcelPackage package = new ExcelPackage(fileInfo))
+			{
+				ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+			}
+		}
+	}
 }
